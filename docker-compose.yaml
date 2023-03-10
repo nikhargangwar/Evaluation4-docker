@@ -7,7 +7,7 @@ services:
       - "6380:6379"
   migration:
     build:
-      context: ../AuthServer
+      context: ../authServer
       dockerfile: Dockerfile.migrations
     restart: on-failure
     depends_on:
@@ -35,7 +35,7 @@ services:
     
   server:
     build:
-      context: ../AuthServer
+      context: ../authServer
       args:
         - no_cache=1
     depends_on:
@@ -55,7 +55,7 @@ services:
 
   backend-service:
       build:
-        context: ../Backend
+        context: ../backend
         dockerfile: Dockerfile.migrations
       depends_on:
         backenddb:
@@ -75,7 +75,7 @@ services:
         POSTGRES_USER: postgres
         POSTGRES_DB: auth
       ports:
-        - "5434:5432"
+        - "5432:5432"
       volumes:
         - ../backend/database/data:/var/lib/postgresql/data
       healthcheck:
